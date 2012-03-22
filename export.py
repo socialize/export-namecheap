@@ -31,7 +31,6 @@ url = """
 """ % ( NAMECHEAP_URI, private_settings.API_USER, private_settings.API_KEY, private_settings.USERNAME,private_settings.CLIENT_IP,private_settings.SLD, private_settings.TLD )
 filehandle = urllib.urlopen( url )
 contents = filehandle.read()
-
 #iterate over hosts and put them into the zone file
 domain = private_settings.SLD + "." + private_settings.TLD + "."
 zone = easyzone.Zone(domain)
@@ -41,10 +40,11 @@ print str(zone._zone.origin)
 hosts_doc = xml.dom.minidom.parseString( contents ) 
 hosts = hosts_doc.getElementsByTagName("host")
 
-#create SOA
-exrds = dns.rdataset.from_text('IN', 'SOA', 300, 'ns1.register-server.com hostmaster.registrar-servers.com 2012031900 10001 10001 10001 3601')
 
-zone._zone.replace_rdataset("@", exrds)
+#create SOA
+#exrds = dns.rdataset.from_text('IN', 'SOA', 300, 'ns1.register-server.com hostmaster.registrar-servers.com 2012031900 10001 10001 10001 3601')
+
+#zone._zone.replace_rdataset("@", exrds)
 
 for host in hosts:
     #get all the properties out of the XML
@@ -53,7 +53,6 @@ for host in hosts:
     mx_pref = host.getAttribute("MXPref")
     record_type = host.getAttribute("Type")
     name = host.getAttribute("Name")
-
 
     if record_type == "FRAME" or record_type == "URL":
         print "not adding: " + str(host.toxml())
@@ -69,7 +68,6 @@ for host in hosts:
     else:
         name_records.add( str(address ))
 
-
-
 zone.filename = sys.argv[1]
+#zone._zone.to_file(sys.argv[1])
 zone.save(autoserial=True)
