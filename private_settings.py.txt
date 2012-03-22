@@ -1,0 +1,6 @@
+API_KEY=""
+API_USER=""
+CLIENT_IP=""
+USERNAME=""
+SLD=""
+TLD=""

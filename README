@@ -1,0 +1,6 @@
+
+requires easyzone: http://pypi.python.org/pypi/easyzone/1.2.1
+
+pretty simple, just change the settings in private_settings.py to your account specific settings and then execute
+
+python export.py >> ./local.zone
