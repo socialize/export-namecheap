@@ -1,3 +1,4 @@
 *.swp
 private_settings.py
 *.pyc
+*.zone
